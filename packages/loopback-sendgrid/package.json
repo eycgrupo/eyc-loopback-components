@@ -1,0 +1,65 @@
+{
+  "name": "@eyc/loopback-sendgrid",
+  "version": "0.0.1",
+  "description": "Provides email service for sendgrid.com",
+  "author": "Mario Estrada <marioestradarosa@yahoo.com>",
+  "copyright.owner": "EyC Software",
+  "license": "MIT",
+  "private": false,
+  "keywords": [
+    "loopback-sendgrid",
+    "loopback"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "engines": {
+    "node": ">=10.16"
+  },
+  "scripts": {
+    "build": "lb-tsc",
+    "build:watch": "lb-tsc --watch",
+    "lint": "npm run eslint && npm run prettier:check",
+    "lint:fix": "npm run eslint:fix && npm run prettier:fix",
+    "prettier:cli": "lb-prettier \"**/*.ts\" \"**/*.js\"",
+    "prettier:check": "npm run prettier:cli -- -l",
+    "prettier:fix": "npm run prettier:cli -- --write",
+    "eslint": "lb-eslint --report-unused-disable-directives .",
+    "eslint:fix": "npm run eslint -- --fix",
+    "pretest": "npm run rebuild",
+    "test": "lb-mocha --allow-console-logs \"dist/__tests__\"",
+    "posttest": "npm run lint",
+    "test:dev": "lb-mocha --allow-console-logs dist/__tests__/**/*.js && npm run posttest",
+    "clean": "lb-clean dist *.tsbuildinfo .eslintcache",
+    "rebuild": "npm run clean && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eycgrupo/eyc-loopback-components"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "README.md",
+    "dist",
+    "src",
+    "!*/__tests__"
+  ],
+  "peerDependencies": {
+    "@loopback/boot": "^3.4.2",
+    "@loopback/core": "^2.16.2"
+  },
+  "dependencies": {
+    "@sendgrid/mail": "^7.4.5"
+  },
+  "devDependencies": {
+    "@loopback/boot": "^3.4.2",
+    "@loopback/build": "^7.0.0",
+    "@loopback/core": "^2.16.2",
+    "@loopback/eslint-config": "^11.0.0",
+    "@loopback/testlab": "^3.4.2",
+    "@types/debug": "^4.1.7",
+    "@types/node": "^10.17.60",
+    "source-map-support": "^0.5.19"
+  }
+}

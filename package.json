@@ -1,0 +1,92 @@
+{
+  "name": "eyc-loopback-components",
+  "description": "Monorepo for EYC loopback components",
+  "license": "MIT",
+  "copyright.owner": "EYC Software",
+  "author": "Mario Estrada <marioestradarosa@yahoo.com>",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eycgrupo/eyc-loopback-components"
+  },
+  "engines": {
+    "node": ">=14.15.0 <15.0.0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "13.1.0",
+    "@commitlint/config-conventional": "13.1.0",
+    "@commitlint/config-lerna-scopes": "13.1.0",
+    "@commitlint/travis-cli": "13.1.0",
+    "@loopback/build": "7.0.0",
+    "@loopback/eslint-config": "11.0.0",
+    "@loopback/testlab": "3.4.2",
+    "@types/fs-extra": "9.0.12",
+    "@types/node": "12.12.62",
+    "@typescript-eslint/eslint-plugin": "4.28.5",
+    "@typescript-eslint/parser": "4.28.5",
+    "commitizen": "4.2.4",
+    "concurrently": "6.2.0",
+    "cross-env": "^7.0.3",
+    "cz-conventional-changelog": "3.3.0",
+    "dotenv": "10.0.0",
+    "eslint": "7.31.0",
+    "eslint-config-prettier": "8.3.0",
+    "eslint-plugin-cypress": "2.11.3",
+    "eslint-plugin-eslint-plugin": "3.5.1",
+    "eslint-plugin-mocha": "9.0.0",
+    "fs-extra": "10.0.0",
+    "husky": "7.0.1",
+    "lerna": "4.0.0",
+    "mocha": "9.0.3",
+    "source-map-support": "0.5.19",
+    "testcontainers": "7.18.1",
+    "typescript": "4.3.5"
+  },
+  "scripts": {
+    "postinstall": "lerna bootstrap",
+    "build": "lerna run build",
+    "build:lb": "node node_modules/@loopback/build/bin/compile-package -b",
+    "clean": "lerna run clean",
+    "commit": "npx it-cz",
+    "commitmsg": "commitlint -E GIT_PARAMS",
+    "prerelease": "npm run build:full && cross-env CI=1 npm run mocha && npm run lint",
+    "release": "cross-env CI=1 lerna version && lerna publish from-git --yes",
+    "build:full": "npm ci --ignore-scripts && lerna bootstrap --ci && npm run clean && npm run build",
+    "mocha": "node node_modules/@loopback/build/bin/run-mocha --lang en_US.UTF-8 \"packages/*/dist/__tests__/**/*.js\"",
+    "lint": "npm run prettier:check && npm run eslint",
+    "lint:fix": "npm run prettier:fix && npm run eslint:fix",
+    "prettier:cli": "lb-prettier \"**/*.ts\" \"**/*.js\" \"**/*.md\"",
+    "prettier:check": "npm run prettier:cli -- --check",
+    "prettier:fix": "npm run prettier:cli -- --write",
+    "eslint": "lb-eslint --cache --report-unused-disable-directives .",
+    "eslint:fix": "npm run eslint -- --fix",
+    "pretest": "npm run clean && npm run build",
+    "pretest:ci": "npm run build",
+    "test": "lb-mocha --allow-console-logs \"packages/*/dist/__tests__/**/*.js\"",
+    "test:ci": "lb-mocha --allow-console-logs \"packages/*/dist/__tests__/**/*.js\"",
+    "posttest": "npm run lint",
+    "test:dev": "lb-mocha --allow-console-logs \"packages/*/dist/__tests__/**/*.js\" && npm run posttest",
+    "prestart": "npm run build",
+    "prepublishOnly": "npm run test"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,js}": [
+      "lb-prettier --write",
+      "lb-eslint --fix --report-unused-disable-directives --cache"
+    ],
+    "*.md": [
+      "lb-prettier --write"
+    ]
+  }
+}

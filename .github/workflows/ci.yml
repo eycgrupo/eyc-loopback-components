@@ -1,0 +1,77 @@
+name: Continous Integration
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+    # The branches below must be a subset of the branches above
+    branches: [master, main]
+
+env:
+  SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+  SENDGRID_EMAIL_FROM: ${{ secrets.SENDGRID_EMAIL_FROM }}
+  SENDGRID_EMAIL_TO: ${{ secrets.SENDGRID_EMAIL_TO }}
+  SENDGRID_TEMPLATE_ID: ${{ secrets.SENDGRID_TEMPLATE_ID }}
+  CI: true
+  NODE_OPTIONS: --max-old-space-size=4096
+
+jobs:
+  test:
+    name: Test
+    timeout-minutes: 60
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node-version: [14, 15]
+      fail-fast: false
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Bootstrap project
+        run: |
+          npm ci --ignore-scripts
+          npm run postinstall
+      - name: Build project
+        run: npm run build
+      - name: Run tests
+        run: npm run test:ci
+
+  code-lint:
+    name: Code Lint
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js 14
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+      - name: Bootstrap project
+        run: |
+          npm ci --ignore-scripts
+          npm run postinstall
+      - name: Verify code linting
+        run: npm run lint
+
+  commit-lint:
+    name: Commit Lint
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Use Node.js 14
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+      - name: Bootstrap project
+        run: |
+          npm ci --ignore-scripts
+          npm run postinstall
+      - name: Verify commit linting
+        run: npx commitlint --from origin/main --to HEAD --verbose
+
