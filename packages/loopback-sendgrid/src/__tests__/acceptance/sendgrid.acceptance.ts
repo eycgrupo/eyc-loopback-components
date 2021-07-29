@@ -28,20 +28,27 @@ describe('Loopback-sendgrid (acceptance)', function (this: Suite) {
     await app.start();
   });
 
-  it('sends a simple email', async () => {
+  it('sends a simple email in sandbox mode', async () => {
     const sendGrid = await app.get<SendgridProvider>(SendgridBindings.PROVIDER);
+
+    // sandboxMode: { enable: true } is used to test it without actually
+    // sending the email.
     const data: SendGridMailData = {
       from: process.env.SENDGRID_EMAIL_FROM!,
       to: process.env.SENDGRID_EMAIL_TO,
       subject: 'Sending simple email with Loopback and SendGrid is Fun',
       text: 'and easy to do anywhere, even with Node.js',
       html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+      mailSettings: {
+        sandboxMode: {enable: true},
+      },
     };
     const result = await sendGrid.send(data as SendGridMailData);
-    expect((result[0] as SendGridResponse).statusCode).to.match(202);
+    // in SandBoxmode it is 200, in real call it is 202
+    expect((result[0] as SendGridResponse).statusCode).to.match(200);
   });
 
-  it('sends a template email', async () => {
+  it('sends a template email with real account', async () => {
     const sendGrid = await app.get<SendgridProvider>(SendgridBindings.PROVIDER);
 
     // We don't send the subject since it is set in the template, in this
@@ -51,8 +58,8 @@ describe('Loopback-sendgrid (acceptance)', function (this: Suite) {
       to: process.env.SENDGRID_EMAIL_TO,
       templateId: process.env.SENDGRID_TEMPLATE_ID,
       dynamicTemplateData: {
-        firstName: 'Juan Perez',
-        orderNumber: '23232323',
+        firstName: 'John Doe',
+        orderNumber: new Date().toISOString,
         total: 'USD 199.00',
       },
     };
@@ -60,7 +67,7 @@ describe('Loopback-sendgrid (acceptance)', function (this: Suite) {
     expect((result[0] as SendGridResponse).statusCode).to.match(202);
   });
 
-  it('fails when wrong email From ', async () => {
+  it('fails when wrong email From with sandBoxMode', async () => {
     const sendGrid = await app.get<SendgridProvider>(SendgridBindings.PROVIDER);
     const data: SendGridMailData = {
       from: 'wrongemail@example.com',
@@ -68,6 +75,9 @@ describe('Loopback-sendgrid (acceptance)', function (this: Suite) {
       subject: 'Sending simple email with Loopback and SendGrid is Fun',
       text: 'and easy to do anywhere, even with Node.js',
       html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+      mailSettings: {
+        sandboxMode: {enable: true},
+      },
     };
     try {
       await sendGrid.send(data as SendGridMailData);
