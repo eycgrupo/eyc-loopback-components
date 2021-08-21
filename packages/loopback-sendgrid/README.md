@@ -1,6 +1,6 @@
 # loopback-sendgrid
 
-This component can used to leverage (sendgrid)[https://sendgrid.com/] email
+This component can used to leverage [sendgrid](https://sendgrid.com/) email
 services from your loopback 4 application.
 
 ## Installation & Configuration
@@ -103,7 +103,7 @@ for the underlying versions associated to the template definition.
 
 You can use Loopback models in the `dynamicTemplateData`. Also note that we
 don't have to specify the `subject:` property, since that's defined in the
-template definition screen at (sendgrid)[https://sendgrid.com/]
+template definition screen at [sendgrid](https://sendgrid.com/)
 
 ```ts
 const data: SendGridMailData = {
