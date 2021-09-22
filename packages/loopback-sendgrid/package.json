@@ -50,7 +50,7 @@
     "@loopback/core": "^2.16.2"
   },
   "dependencies": {
-    "@sendgrid/mail": "7.4.6"
+    "@sendgrid/mail": "7.4.7"
   },
   "devDependencies": {
     "@loopback/boot": "3.4.3",
