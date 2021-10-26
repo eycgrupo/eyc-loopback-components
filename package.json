@@ -10,7 +10,7 @@
     "url": "https://github.com/eycgrupo/eyc-loopback-components"
   },
   "engines": {
-    "node": ">=14.15.0 <15.0.0"
+    "node": ">=14.15.0 <17.0.0"
   },
   "devDependencies": {
     "@commitlint/cli": "13.2.1",
