@@ -13,10 +13,10 @@
     "node": ">=14.15.0 <15.0.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "16.2.4",
+    "@commitlint/cli": "16.3.0",
     "@commitlint/config-conventional": "16.2.4",
     "@commitlint/config-lerna-scopes": "16.2.4",
-    "@commitlint/travis-cli": "16.2.4",
+    "@commitlint/travis-cli": "16.3.0",
     "@loopback/build": "7.0.2",
     "@loopback/eslint-config": "11.0.2",
     "@loopback/testlab": "3.4.4",
