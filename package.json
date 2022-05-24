@@ -40,7 +40,7 @@
     "mocha": "10.0.0",
     "source-map-support": "0.5.21",
     "testcontainers": "8.10.1",
-    "typescript": "4.6.4"
+    "typescript": "4.7.2"
   },
   "scripts": {
     "postinstall": "lerna bootstrap",
