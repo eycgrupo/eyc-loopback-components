@@ -1,6 +1,6 @@
 {
   "name": "@eyc/loopback-sendgrid",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Provides email service for sendgrid.com",
   "author": "Mario Estrada <marioestradarosa@yahoo.com>",
   "copyright.owner": "EyC Software",
