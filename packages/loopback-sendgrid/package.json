@@ -1,6 +1,6 @@
 {
   "name": "@eyc/loopback-sendgrid",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Provides email service for sendgrid.com",
   "author": "Mario Estrada <marioestradarosa@yahoo.com>",
   "copyright.owner": "EyC Software",
@@ -46,8 +46,8 @@
     "!*/__tests__"
   ],
   "peerDependencies": {
-    "@loopback/boot": "^3.4.2",
-    "@loopback/core": "^2.16.2"
+    "@loopback/boot": ">3.4.2",
+    "@loopback/core": ">2.16.2"
   },
   "dependencies": {
     "@sendgrid/mail": "7.7.0"
