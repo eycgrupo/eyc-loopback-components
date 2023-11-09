@@ -58,7 +58,7 @@
     "@loopback/core": "2.18.0",
     "@loopback/eslint-config": "11.0.2",
     "@loopback/testlab": "3.4.4",
-    "@types/debug": "4.1.7",
+    "@types/debug": "4.1.12",
     "@types/node": "10.17.60",
     "source-map-support": "0.5.21"
   }
