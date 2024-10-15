@@ -53,11 +53,11 @@
     "@sendgrid/mail": "7.7.0"
   },
   "devDependencies": {
-    "@loopback/boot": "3.4.4",
-    "@loopback/build": "7.0.2",
-    "@loopback/core": "2.18.0",
-    "@loopback/eslint-config": "11.0.2",
-    "@loopback/testlab": "3.4.4",
+    "@loopback/boot": "7.0.7",
+    "@loopback/build": "11.0.6",
+    "@loopback/core": "6.1.4",
+    "@loopback/eslint-config": "15.0.4",
+    "@loopback/testlab": "7.0.6",
     "@types/debug": "4.1.7",
     "@types/node": "10.17.60",
     "source-map-support": "0.5.21"
